@@ -103,15 +103,14 @@
 //     res.status(500).json({ registeredParent: false });
 //   }
 // }
-
-import parent1Model from "../models/parent1Model.js";
+import { Parent1 } from "../models/parent1Model.js";
 
 export async function registerparent1(req, res, next) {
   try {
     const parentData = req.body;
-    const newParent = new parent1Model(parentData);
+    const newParent = new Parent1(parentData); // Corrected model name
     const savedParent = await newParent.save();
-    
+
     res.status(201).json({ parentId: savedParent._id, registeredParent: true });
   } catch (error) {
     console.error("Error registering parent:", error);

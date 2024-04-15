@@ -1,6 +1,8 @@
-import ChildModel from "../models/childModel.js";
+import { Child } from "../models/childModel.js";
+
 export async function registerChild(req, res, next) {
   try {
+    // Destructure the request body for better readability
     const {
       firstName,
       middleName,
@@ -11,7 +13,7 @@ export async function registerChild(req, res, next) {
       crnNumber,
       countryOfBirth,
       homeAddress,
-      subrub,
+      suburb,
       state,
       postcode,
       school,
@@ -21,10 +23,11 @@ export async function registerChild(req, res, next) {
       sessionType,
       preferenceDays,
       preferredStartDate,
-      prefferedEducator,
+      preferredEducator,
     } = req.body;
 
-    const newChild = new ChildModel({
+    // Create a new Child instance
+    const newChild = new Child({
       firstName,
       middleName,
       lastName,
@@ -34,7 +37,7 @@ export async function registerChild(req, res, next) {
       crnNumber,
       countryOfBirth,
       homeAddress,
-      subrub,
+      suburb, // Corrected typo in variable name
       state,
       postcode,
       school,
@@ -42,16 +45,21 @@ export async function registerChild(req, res, next) {
       indigenousState,
       culturalBackground,
       sessionType,
-      prefferedEducator,
+      preferredEducator, // Corrected variable name
       preferredStartDate,
       preferenceDays,
     });
 
+    // Save the new child to the database
     await newChild.save();
 
-    res.status(201).json({ child: newChild._id, registeredChild: true });
+    // Respond with the ID of the registered child
+    res.status(201).json({ childId: newChild._id, registeredChild: true });
   } catch (err) {
+    // Handle errors gracefully
     console.error(err);
-    res.status(500).json({ registeredChild: false });
+    res
+      .status(500)
+      .json({ error: "An error occurred while registering the child." });
   }
 }
