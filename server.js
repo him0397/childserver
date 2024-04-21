@@ -5,12 +5,13 @@ import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import childRoutes from './routes/childRoutes.js';
 import parent1Routes from './routes/parent1Routes.js';
+import educatorRoutes from './routes/educatorRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 dotenv.config();
 
-const port = process.env.PORT || 5000;
-
+// const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 connectDB();
 
 const app = express();
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
 app.use('/api/users', userRoutes);
 app.use('/api/child', childRoutes);
 app.use('/api/parent1', parent1Routes);
+app.use('/api/educator', educatorRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

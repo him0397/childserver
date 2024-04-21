@@ -1,65 +1,78 @@
-import { Child } from "../models/childModel.js";
+import { Child } from '../models/childModel.js';
+import { Helpers } from '../utils/helpers.js';
 
-export async function registerChild(req, res, next) {
-  try {
-    // Destructure the request body for better readability
-    const {
-      firstName,
-      middleName,
-      lastName,
-      preferedName,
-      gender,
-      dob,
-      crnNumber,
-      countryOfBirth,
-      homeAddress,
-      suburb,
-      state,
-      postcode,
-      school,
-      languageSpokenHome,
-      indigenousState,
-      culturalBackground,
-      sessionType,
-      preferenceDays,
-      preferredStartDate,
-      preferredEducator,
-    } = req.body;
+const getChildDetails = Helpers.asyncHandler(async (req, res) => {
+  const child = await Child.findById(req.params.id);
 
-    // Create a new Child instance
-    const newChild = new Child({
-      firstName,
-      middleName,
-      lastName,
-      preferedName,
-      gender,
-      dob,
-      crnNumber,
-      countryOfBirth,
-      homeAddress,
-      suburb, // Corrected typo in variable name
-      state,
-      postcode,
-      school,
-      languageSpokenHome,
-      indigenousState,
-      culturalBackground,
-      sessionType,
-      preferredEducator, // Corrected variable name
-      preferredStartDate,
-      preferenceDays,
-    });
-
-    // Save the new child to the database
-    await newChild.save();
-
-    // Respond with the ID of the registered child
-    res.status(201).json({ childId: newChild._id, registeredChild: true });
-  } catch (err) {
-    // Handle errors gracefully
-    console.error(err);
-    res
-      .status(500)
-      .json({ error: "An error occurred while registering the child." });
+  if (child) {
+    res.json(child);
+  } else {
+    res.status(404);
+    throw new Error('Child not found');
   }
-}
+});
+
+const registerChild = Helpers.asyncHandler(async (req, res) => {
+  const { name, age, parentID } = req.body;
+
+  const childExists = await Child.findOne({ name, parentID });
+
+  if (childExists) {
+    res.status(400);
+    throw new Error('Child already exists');
+  }
+
+  const child = await Child.create({
+    name,
+    age,
+    parentID,
+  });
+
+  if (child) {
+    res.status(201).json(child);
+  } else {
+    res.status(400);
+    throw new Error('Invalid child data');
+  }
+});
+
+const updateChildDetails = Helpers.asyncHandler(async (req, res) => {
+  const child = await Child.findById(req.params.id);
+
+  if (child) {
+    child.name = req.body.name || child.name;
+    child.age = req.body.age || child.age;
+
+    const updatedChild = await child.save();
+
+    res.json(updatedChild);
+  } else {
+    res.status(404);
+    throw new Error('Child not found');
+  }
+});
+
+const deleteChild = Helpers.asyncHandler(async (req, res) => {
+  const child = await Child.findById(req.params.id);
+
+  if (child) {
+    await Child.deleteOne({ _id: child._id });
+    res.json({ message: 'Child removed' });
+  } else {
+    res.status(404);
+    throw new Error('Child not found');
+  }
+});
+
+const getAllChildren = Helpers.asyncHandler(async (req, res) => {
+  const children = await Child.find({});
+  res.json(children);
+});
+
+export {
+  getChildDetails,
+  registerChild,
+  updateChildDetails,
+  deleteChild,
+  getAllChildren,
+};
