@@ -1,15 +1,15 @@
 import mongoose, { Schema, model } from "mongoose";
 
 const childSchema = new Schema({
-  firstName: {
+  childfirstname: {
     type: String,
     required: [true, "First name is required"],
   },
-  middleName: {
+  childmiddlename: {
     type: String,
     required: [true, "Middle name is required"],
   },
-  lastName: {
+  childlastname: {
     type: String,
     required: [true, "Last name is required"],
   },
@@ -17,74 +17,79 @@ const childSchema = new Schema({
     type: String,
     required: [true, "Prefedred name is required"],
   },
-  gender: {
+  childgender: {
     type: String,
     required: [true, "Gender is required"],
   },
-  dob: {
-    type: Number,
+  childdob: {
+    type: String,
     required: [true, "Date of birth is required"],
   },
-  crnNumber: {
-    type: Number,
+  childbirthcertificate: {
+    type: String,
+    required: [true, "Image of birth certificate is required"],
+  },
+  childcrnnumber: {
+    type: String,
     required: [true, "Crn Number is required"],
   },
-  countryOfBirth: {
+  childbirthcountry: {
     type: String,
     required: [true, "Country Of Birth is required"],
   },
-  homeAddress: {
+  childhomeaddress: {
     type: String,
     required: [true, "Home Address is required"],
   },
-  subrub: {
+  childsuburb: {
     type: String,
     required: [true, "Password is required"],
   },
-  state: {
+  childstate: {
     type: String,
     required: [true, "State name is required"],
   },
-  postcode: {
-    type: Number,
+  childpostcode: {
+    type: String,
     required: [true, "Post code is required"],
   },
-  school: {
+  isschool: {
     type: String,
     required: [true, "School name is required"],
   },
-  languageSpokenHome: {
+  childschoolname: {
+    type: String,
+  },
+  childlanguages: {
     type: String,
     required: [true, "Language is required"],
   },
-  indigenousState: {
+  childindigenousstatus: {
     type: String,
     required: [true, "Indigenous state is required"],
   },
-  culturalBackground: {
+  childculturalbackground: {
     type: String,
     required: [true, "Cultural background name is required"],
   },
-  sessionType: {
+  childsessiontype: {
     type: String,
     required: [true, "Session type is required"],
   },
-  preferenceDays: {
+  childpreferencedays: {
     type: String,
     required: [true, "Preference days are required"],
   },
-  preferredStartDate: {
+  childpreferredstartdate: {
     type: String,
     required: [true, "Prefered Start date is required"],
   },
-  prefferedEducator: {
+  childpreferrededucator: {
     type: String,
     required: [true, "Prefered Educator is required"],
   },
 
 });
-
-
 
 const Child = mongoose.model('child', childSchema);
 export {Child};

@@ -6,12 +6,15 @@ import userRoutes from './routes/userRoutes.js';
 import childRoutes from './routes/childRoutes.js';
 import parent1Routes from './routes/parent1Routes.js';
 import educatorRoutes from './routes/educatorRoutes.js';
+import custodyRoutes from './routes/custodyRoutes.js';
+import emergencyRoutes from './routes/emergencyroutes.js';
+import healthroutes from './routes/healthroutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 dotenv.config();
 
-// const port = process.env.PORT || 5000;
 const port = process.env.PORT || 5001;
+
 connectDB();
 
 const app = express();
@@ -31,6 +34,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/child', childRoutes);
 app.use('/api/parent1', parent1Routes);
 app.use('/api/educator', educatorRoutes);
+app.use('/api/custody', custodyRoutes);
+app.use('/api/emergencycontact', emergencyRoutes);
+app.use('/api/healthandmedicalinfo', healthroutes);
 
 app.use(notFound);
 app.use(errorHandler);
