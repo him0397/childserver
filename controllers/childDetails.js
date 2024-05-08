@@ -13,20 +13,7 @@ const getChildDetails = Helpers.asyncHandler(async (req, res) => {
 });
 
 const registerChild = Helpers.asyncHandler(async (req, res) => {
-  const { name, age, parentID } = req.body;
-
-  const childExists = await Child.findOne({ name, parentID });
-
-  if (childExists) {
-    res.status(400);
-    throw new Error('Child already exists');
-  }
-
-  const child = await Child.create({
-    name,
-    age,
-    parentID,
-  });
+  const child = await Child.create(req.body);
 
   if (child) {
     res.status(201).json(child);
@@ -40,11 +27,11 @@ const updateChildDetails = Helpers.asyncHandler(async (req, res) => {
   const child = await Child.findById(req.params.id);
 
   if (child) {
-    child.name = req.body.name || child.name;
-    child.age = req.body.age || child.age;
+    Object.keys(req.body).forEach(key => {
+      child[key] = req.body[key];
+    });
 
     const updatedChild = await child.save();
-
     res.json(updatedChild);
   } else {
     res.status(404);

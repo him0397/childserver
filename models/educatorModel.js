@@ -1,139 +1,70 @@
-import mongoose, { Schema, model } from "mongoose";
+import mongoose from "mongoose";
+
+const { Schema, model } = mongoose;
 
 const educatorSchema = new Schema({
-  educatorFirstName: {
-    type: String,
-    required: [true, "Educator's First Name is required"],
-  },
-  educatorLastName: {
-    type: String,
-    required: [true, "Educator Last name is required"],
-  },
-  homeAddress: {
-    type: String,
-    required: [true, "Home Address is required"],
-  },
-  dob: {
-    type: Number,
-    required: [true, "Date of birth is required"],
-  },
-  email: {
-    type: Number,
-    required: [true, "Email is required"],
-  },
-  dateOfEngagementWithServices: {
-    type: String,
-    required: [true, "Date Of Engagement With Services is required"],
-  },
-  expectedFdcStartDate: {
-    type: String,
-    required: [true, "Expected Fdc Start Date is required"],
-  },
-  yourPassportPhoto: {
-    type: String,
-    required: [true, "Your Passport Photo is required"],
-  },
-  yourPassportPhoto: {
-    type: String,
-    required: [true, "Your Passport Photo is required"],
-  },
-  yourPassportPhoto: {
-    type: String,
-    required: [true, "Your Passport Photo is required"],
-  },
-  yourPassportPhoto: {
-    type: String,
-    required: [true, "Your Passport Photo is required"],
-  },
-  yourPhone: {
-    type: Number,
-    required: [true, "Your Phone number is required"],
-  },
-  typeOfRelation: [{
-    type: {
-      type: String,
-      required: true
+  firstname: String,
+  lastname: String,
+  dob: String,
+  doe: String,
+  address: String,
+  email: String,
+  fdc: Date,
+  passportphoto: String,
+  driverlicense: String,
+  medicarecard: String,
+  phone: Number,
+  prodaRA: String,
+  ABN: String,
+  bankName: String,
+  accountName: String,
+  accountNumber: Number,
+  bsb1: Number,
+  bsb2: Number,
+  Addchild: [
+    {
+      childname: String,
+      childage: Number,
     },
-    name: {
-      type: String,
-      required: true
+  ],
+  fdcname: String,
+  FamilyMember: [
+    { 
+      relativename: String,
+      relativeage: Number,
+      relativetype: String,
     },
-    age: {
-      type: Number,
-      required: true
-    }
-  }],
-  dataArray: [{
-    name: {
-      type: String,
-      required: true
-    },
-    age: {
-      type: Number,
-      required: true
-    }
-  }],
-  intendedFdcName: {
-    type: String,
-    required: [true, "Name of your FDC is required"],
-  },
-  yourProdaRa: {
-    type: String,
-    required: [true, "Proda is required"],
-  },
-  yourAbn: {
-    type: String,
-    required: [true, "ABN is required"],
-  },
-  bankName: {
-    type: String,
-    required: [true, "Bank name is required"],
-  },
-  accountName: {
-    type: String,
-    required: [true, "Account Name is required"],
-  },
-  accountNumber: {
-    type: String,
-    required: [true, "Account Number is required"],
-  },
-  bsb: {
-    type: String,
-    required: [true, "BSB is required"],
-  },
-  yourInsurancePhoto: {
-    type: String,
-    required: [true, "Your Insurance Photo is required"],
-  },
-  yourMedicalCheckPhoto: {
-    type: String,
-    required: [true, "Your Medical Check Photo is required"],
-  },
-  yourFitAndProperForm: {
-    type: String,
-    required: [true, "Your Fit And Proper Form is required"],
-  },
-  yourComplianceHistoryStatement: {
-    type: String,
-    required: [true, "Your Compliance History Statement Photo is required"],
-  },
-  educatorWorkingWithChildrenCheckCard: {
-    type: String,
-    required: [true, "Educator Working With Children Check Card is required"],
-  },
-  whatIsYourQualification: {
-    type: String,
-    required: [true, "Chat Is Your Qualification is required"],
-  },
-  certificateOfEducationInChildcare: {
-    type: String,
-    required: [true, "Certificate Of Education In Childcare is required"],
-  },
+  ],
+  insurancephoto: String,
+  medicalcheck: String,
+  fitform: String,
+  compliancehistory: String,
+  workingwithchildrencard: String,
+  qualification1: String,
+  qualification2: String,
+  otherqualification: String,
+  certificateinearlychildhood: String,
+  diplomainchildhood:String,
 
-
+  firstaiddate: Date,
+  firstaid: String,
+  cprdate: Date,
+  cprphoto: String,
+  childprotectiondate: String,
+  childprotectionphoto: String,
+  developmentcoursedescription: String,
+  developmentcoursephoto: String,
+  policeclearancedate: Date,
+  policeclearancephoto: String,
+  familyoliceclearancedate: String,
+  familypoliceclearancephoto: String,
+  vaccinationphoto: String,
+  safetyglassinspectionphoto: String,
+  councilapprovalphoto: String,
+  pestcontrolevidencephoto: String,
+  //Your Normal Operation Hours?
+  // normalOperationHours: [String],
 });
 
-
-
 const Educator = mongoose.model('educator', educatorSchema);
-export {Educator};
+export { Educator };
